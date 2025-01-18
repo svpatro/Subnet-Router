@@ -1,6 +1,6 @@
-# VPN Configuration
+# Subnet Router
 
-This script allows you to transform a regular Linux Container (LXC) into a Tailscale VPN endpoint [subnet router](https://tailscale.com/kb/1019/subnets) within a given network.
+This script allows you to transform a regular Ubuntu Linux Container (LXC) into a Tailscale VPN endpoint [subnet router](https://tailscale.com/kb/1019/subnets) within a given network.
 
 ## Getting Started
 
