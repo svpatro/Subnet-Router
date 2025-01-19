@@ -11,18 +11,24 @@ After this, we can pull down the script (either by using SSH keys or HTTPS). You
 
 ## Configurations
 
-In the `/etc/sysctl.conf` file within the LXC container, you will need to change both IPV4 forwarding and IPV6 forwarding equal to 1 (default is 0). Afterwards, you will need to shutdown the container using `shutdown -h now` and move over to the Proxmox host shell. Navigate to `/etc/pve/lxc/<container_number>.conf` and add the following two lines to the end of the file:
+### LXC Shell
+
+In the `/etc/sysctl.conf` file within the LXC container, you will need to uncomment both IPV4 packet forwarding & IPV6 packet forwarding to allow the packets to flow through the LXC and arrive at their intended destination. After saving the configuration, you will need to shutdown the container using `shutdown -h now` and migrate over to the Proxmox host shell for the next step.
+
+### Proxmox Shell
+
+Once you have opened up the Proxmox shell, you will need to navigate over to `/etc/pve/lxc/<Container-ID>.conf` and append the following lines at the bottom of the file:  
 
 ```
 lxc.cgroup2.devices.allow: c 10:200 rwm
 lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 ```
 
-Afterwards, you can start the container and edit `./start_vpn.sh` to include the routes you would like to advertise. You can do this by replacing <routes> with your advertised subnets (i.e. 192.168.1.0/24 or 172.16.0.0/16). You can advertise multiple subnets by specifying a comma between the desired subnets. 
+Once saved, you can start the container again and edit `./start_vpn.sh` to include the routes you would like to advertise. You can do this by replacing <routes> with your advertised subnets (i.e. 192.168.1.0/24 or 172.16.0.0/16). You can advertise multiple subnets by specifying a comma between the desired subnets. 
 
 ## Tailscale Operations
 
-If this is the first time using LXC as a VPN endpoint, running `start_vpn.sh` will start the Tailscale VPN service and generate a unique link to add the LXC container as apart of your Tailnet. You can take this link and paste it in any browser on a machine where you are signed into Tailscale and it will simply allow you to add the LXC into the Tailnet. 
+If this is the first time using the LXC as a VPN endpoint, running `start_vpn.sh` will start the Tailscale VPN service and generate a unique link to add the LXC as apart of your Tailnet. You can take this link and paste it in any browser on a machine where you are signed into Tailscale and it will simply allow you to add the LXC into the Tailnet. 
 
 ### Stopping Tailscale
 
