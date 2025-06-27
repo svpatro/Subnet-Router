@@ -5,7 +5,7 @@ Transform an Ubuntu Linux Container (LXC) into a Tailscale VPN endpoint with [su
 ## Automation
 Currently a work in progress, however Terraform is used for provisioning the LXC and Ansible is used for configuring the LXC
 
-# Automation Notes
+### Automation Notes
 - openssh-server needs to be installed onto the container
 - openssh needs to be configured in `/etc/ssh/sshd_config`
 - Port 22 needs to be uncommented
