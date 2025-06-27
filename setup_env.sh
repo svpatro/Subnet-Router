@@ -1,3 +1,4 @@
+#!/bin/bash
 apt-get install vim -y
 apt-get remove openssh-server -y
 ufw deny 22
