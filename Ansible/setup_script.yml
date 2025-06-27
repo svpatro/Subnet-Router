@@ -1,0 +1,24 @@
+- name: Setup Subnet Router
+  hosts: routers
+  become: yes
+  tasks:
+    - name: Ensure git is installed
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+
+    - name: Clone Subnet-Router repository
+      git:
+        repo: https://github.com/svpatro/Subnet-Router.git
+        dest: /root/Subnet-Router
+        force: yes
+
+    - name: Make setup_env.sh executable
+      file:
+        path: /root/Subnet-Router/setup_env.sh
+        mode: '0777'
+        state: file
+
+    - name: Run setup_env.sh
+      command: /root/Subnet-Router/setup_env.sh

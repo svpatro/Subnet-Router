@@ -2,6 +2,9 @@
 
 Transform an Ubuntu Linux Container (LXC) into a Tailscale VPN endpoint with [subnet routing capabilities](https://tailscale.com/kb/1019/subnets).
 
+## Automation
+Currently a work in progress, however Terraform is used for provisioning the LXC and Ansible is used for configuring the LXC
+
 ## Getting Started
 
 Start by installing Git in the Linux Container:
