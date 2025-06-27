@@ -22,3 +22,18 @@
 
     - name: Run setup_env.sh
       command: /root/Subnet-Router/setup_env.sh
+
+    - name: Enable IPv4 forwarding
+      replace:
+        path: /etc/sysctl.conf
+        regexp: '^#?(net\.ipv4\.ip_forward\s*=\s*)0?1'
+        replace: '\1=1'
+
+    - name: Enable IPv6 forwarding
+      replace:
+        path: /etc/sysctl.conf
+        regexp: '^#?(net\.ipv6\.conf\.all\.forwarding\s*=\s*)0?1'
+        replace: '\1=1'
+
+    - name: Reload sysctl
+      command: sysctl -p

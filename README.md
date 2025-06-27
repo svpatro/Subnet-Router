@@ -3,20 +3,34 @@
 Transform an Ubuntu Linux Container (LXC) into a Tailscale VPN endpoint with [subnet routing capabilities](https://tailscale.com/kb/1019/subnets).
 
 ## Automation
-Currently a work in progress, however Terraform is used for provisioning the LXC and Ansible is used for configuring the LXC
+Currently a work in progress, however Terraform is used for provisioning the LXC and Ansible is used for configuring the LXC.
 
 ### Automation Notes
 - openssh-server needs to be installed onto the container
 - openssh needs to be configured in `/etc/ssh/sshd_config`
 - Port 22 needs to be uncommented
 - PermitRootLogin needs to be uncommented and set to 'Yes'
-```
+
+```bash
+# Commands for container
 apt install openssh-server
 # After Configuration is saved
 systemctl restart ssh
 systemctl status ssh
 ```
+
 - SSH into the LXC at least once to obtain the host key (must be done in same shell instance)
+- SSHPass also needs to be installed on the host machine (will move towards certificates)
+
+```bash
+# Commands to provision container
+terraform init
+terraform plan
+terraform apply
+
+# Commands to configure container
+ansible-playbook -i inventory.ini setup_script.yml
+```
 
 ## Getting Started
 
